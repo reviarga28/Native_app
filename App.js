@@ -1,37 +1,65 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './screens/HomeScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import { View, Text } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import "./global.css"
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { View, Text, StyleSheet } from "react-native";
+import "./global.css";
+import HomeScreen from "./screens/HomeScreen";
+import DetailScreen from "./screens/DetailScreen";
 
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+function CustomHeader() {
+  return (
+    <View style={styles.headerContainer}>
+      <Text style={styles.headerTitle}>Al - Quran</Text>
+    </View>
+  );
+}
+
+function HomeStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Al - Quran"
+        component={HomeScreen}
+        options={{
+          header: () => <CustomHeader />,
+        }}
+      />
+      <Stack.Screen name="Detail" component={DetailScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function MainTab() {
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Home" component={HomeStack} />
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
-
-            if (route.name === 'Home') {
-              iconName = 'home-outline';
-            } else if (route.name === 'Profile') {
-              iconName = 'person-outline';
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'blue',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-      </Tab.Navigator>
+      <MainTab />
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  headerContainer: {
+    backgroundColor: "#ffd700",
+    height: 100,
+    justifyContent: "flex-end",
+    paddingBottom: 20,
+    paddingStart: 20,
+  },
+  headerTitle: {
+    color: "#fff",
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+});

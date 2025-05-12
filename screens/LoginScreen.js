@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image, KeyboardAvoidingView, Platform } from 'react-native';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ navigation, setIsLoggedIn  }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isFocusedUsername, setIsFocusedUsername] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
 
-  const handleLogin = () => {
-    if (username === 'admin' && password === 'admin') {
-      navigation.replace('Home');
-    } else {
-      Alert.alert('Login Failed', 'Incorrect username or password');
-    }
-  };
+ const handleLogin = () => {
+  if (username === 'admin' && password === 'admin') {
+    // Ganti state isLoggedIn dari App.js
+    // setIsLoggedIn akan membuat App merender MainTab
+    setIsLoggedIn(true);
+  } else {
+    Alert.alert('Login Failed', 'Incorrect username or password');
+  }
+};
+
 
   return (
     <KeyboardAvoidingView
