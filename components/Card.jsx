@@ -1,32 +1,30 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 
 export default function Card() {
+    const navigation = useNavigation();
   // Sample data for cards
   const cardData = [
     { 
-      title: "Al-Fatihah", 
-      subtitle: "Pembukaan", 
-      ayah: "7 Ayat",
-      color: "bg-emerald-100"
+      title: "Juz", 
+      screen: "Juz",
+      image: require("../assets/quran1 1.png")
     },
     { 
-      title: "Al-Baqarah", 
-      subtitle: "Sapi Betina", 
-      ayah: "286 Ayat",
-      color: "bg-blue-100"
+      title: "Surah", 
+      screen: "Surah",
+      image: require("../assets/mosque.png")
     },
     { 
-      title: "Ali 'Imran", 
-      subtitle: "Keluarga Imran", 
-      ayah: "200 Ayat",
-      color: "bg-purple-100"
+      title: "Halaman", 
+      screen: "Halaman",
+      image: require("../assets/goto-page.png")
     },
     { 
-      title: "An-Nisa", 
-      subtitle: "Wanita", 
-      ayah: "176 Ayat",
-      color: "bg-amber-100"
+      title: "BookMark", 
+      screen: "BookMark",
+      image: require("../assets/bookmark 1.png")
     }
   ];
 
@@ -38,18 +36,12 @@ export default function Card() {
           <TouchableOpacity 
             key={index}
             activeOpacity={0.8}
-            className={`w-[48%] mb-4 ${card.color} rounded-xl shadow-md overflow-hidden`}
+             onPress={() => navigation.navigate(card.screen)}
+            className="bg-white w-48 rounded-xl shadow-lg mb-4"
           >
-            <View className="p-4">
-              <Text className="text-lg font-bold text-gray-800">{card.title}</Text>
-              <Text className="text-sm text-gray-600">{card.subtitle}</Text>
-              
-              <View className="mt-4 flex-row items-center justify-between">
-                <Text className="text-xs text-gray-500">{card.ayah}</Text>
-                <View className="bg-white rounded-full w-6 h-6 items-center justify-center">
-                  <Text className="text-xs">﷽</Text>
-                </View>
-              </View>
+            <View className="flex justify-center items-center p-4">
+              <Image source={card.image} className="w-12 h-12"/>
+              <Text className="text-md font-semibold text-gray-800">{card.title}</Text>
             </View>
           </TouchableOpacity>
         ))}
@@ -67,7 +59,7 @@ export default function Card() {
               activeOpacity={0.7}
               className="bg-white px-4 py-2 rounded-full"
             >
-              <Text className="text-emerald-600 font-medium">Baca</Text>
+              <Text onPress={() => navigation.navigate('Detail')} className="text-emerald-600 font-medium">Baca</Text>
             </TouchableOpacity>
           </View>
         </View>
