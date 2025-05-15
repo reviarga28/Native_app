@@ -11,6 +11,7 @@ import SurahScreen from "./screens/SurahScreen";
 import BookMarkScreen from "./screens/BookMarkScreen";
 import HalamanScreen from "./screens/HalamanScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import SurahDetailScreen from "./screens/SurahDetailScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -72,7 +73,13 @@ function HomeStack() {
         name="Surah"
         component={SurahScreen}
         headerShown={false}
-        options={{ header: () => <HeaderStack title="Surah" /> }}
+        options={{ header: () => <HeaderStack title="Daftar Surah Al-Qur'an" /> }}
+      />
+      <Stack.Screen
+        name="SurahDetail"
+        component={SurahDetailScreen}
+        headerShown={false}
+        options={{ header: () => <HeaderStack title="SurahDetail" /> }}
       />
       <Stack.Screen
         name="Halaman"
